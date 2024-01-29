@@ -7,10 +7,11 @@ class GamblingSim {
     public int game_stake;
     public int numOfDays;
     public int stake_amount;
-
+  
     public GamblingSim() {
         day_stake = 100;
         game_stake = 1;
+        numOfDays = 20;
     }
 
     @Override
@@ -19,36 +20,26 @@ class GamblingSim {
     }
 
     public void betprobability() {
-        int stake_amount = 0;
+        int stake_amount ;
         int i;
-        int daytotalwin = 0;
-        int daytotalloose = 0;
-        int betcheck;
+        int totalwin = 0;
+        int totalloose = 0;
+        int prob_win_loss;
         Random random = new Random();
 
-        for (i = 1; i <= 100; i++) {
-            betcheck = random.nextInt(2);
-            if (betcheck == 1) {
-                stake_amount += 1;
-                daytotalwin ++;
-                System.out.print("Stake Win: "+stake_amount+"DAY WIN " + daytotalwin);
-                if (daytotalwin == 50) {
-                    System.out.println("Resigning with win");
-                    break;
-                }
-            } else {
-                stake_amount += 1;
-                daytotalloose++;
-                System.out.println(" Total Stake Loss:" + daytotalloose);
-                if (daytotalloose == 50) {
-                    System.out.println("Lost 50%!!Dissatisfied!Leaving");
-                    break;
-                }
+        for (i = 1; i <=numOfDays; i++) {
+            prob_win_loss = random.nextInt(2);
+            stake_amount = random.nextInt(day_stake);
+            if (prob_win_loss == 1)
+                totalwin += stake_amount;
+            else
+                totalloose += stake_amount;
             }
+        int Total_amount = (totalwin-totalloose);
+        if(Total_amount > 0)
+            System.out.println("The Total Profit is " + Total_amount);
+
+        else
+            System.out.println("The Total Loss is " + Total_amount);
         }
     }
-    public static void main(String[] args){
-        GamblingSim ob = new GamblingSim();
-        ob.betprobability();
-    }
-}
