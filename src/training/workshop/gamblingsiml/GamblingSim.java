@@ -22,8 +22,7 @@ class GamblingSim {
     public void betprobability() {
         int stake_amount;
         int i;
-        int Max_Profit = 0;
-        int Max_Loose = 0;
+        int total_amt;
         int day_max_profit = 0;
         int day_max_loose = 0;
         int prob_win_loss;
@@ -32,19 +31,15 @@ class GamblingSim {
         for (i = 1; i <= numOfDays; i++) {
             prob_win_loss = random.nextInt(2);
             stake_amount = random.nextInt(day_stake);
-            if (prob_win_loss == 1) {
-                if (Max_Profit < stake_amount) {
-                    Max_Profit = stake_amount;
-                    day_max_profit = i;
-                }
-            } else {
-                if (Max_Loose < stake_amount) {
-                    Max_Loose = stake_amount;
-                    day_max_loose = i;
-                }
-            }
+            if (prob_win_loss == 1)
+                day_max_profit += stake_amount;
+            else
+                day_max_loose += stake_amount;
+            total_amt = day_max_profit - day_max_loose;
+            if (day_max_profit > day_max_loose)
+                System.out.println("Maximum Profit " + day_max_profit + " $ You can Continue next month");
+            else
+                System.out.println("Maximum Loss of " + day_max_loose + " $ Stop Gambling");
         }
-        System.out.println("Maximum Profit of " + Max_Profit + " On Day: " + day_max_profit);
-        System.out.println("Maximum Loss of " + Max_Loose + " On Day: " + day_max_loose);
     }
 }
