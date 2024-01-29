@@ -7,7 +7,7 @@ class GamblingSim {
     public int game_stake;
     public int numOfDays;
     public int stake_amount;
-  
+
     public GamblingSim() {
         day_stake = 100;
         game_stake = 1;
@@ -16,30 +16,35 @@ class GamblingSim {
 
     @Override
     public String toString() {
-        return "stake{" + "Day_Stake =" +"Game_Stake = " + game_stake + '}';
+        return "stake{" + "Day_Stake =" + "Game_Stake = " + game_stake + '}';
     }
 
     public void betprobability() {
-        int stake_amount ;
+        int stake_amount;
         int i;
-        int totalwin = 0;
-        int totalloose = 0;
+        int Max_Profit = 0;
+        int Max_Loose = 0;
+        int day_max_profit = 0;
+        int day_max_loose = 0;
         int prob_win_loss;
         Random random = new Random();
 
-        for (i = 1; i <=numOfDays; i++) {
+        for (i = 1; i <= numOfDays; i++) {
             prob_win_loss = random.nextInt(2);
             stake_amount = random.nextInt(day_stake);
-            if (prob_win_loss == 1)
-                totalwin += stake_amount;
-            else
-                totalloose += stake_amount;
+            if (prob_win_loss == 1) {
+                if (Max_Profit < stake_amount) {
+                    Max_Profit = stake_amount;
+                    day_max_profit = i;
+                }
+            } else {
+                if (Max_Loose < stake_amount) {
+                    Max_Loose = stake_amount;
+                    day_max_loose = i;
+                }
             }
-        int Total_amount = (totalwin-totalloose);
-        if(Total_amount > 0)
-            System.out.println("The Total Profit is " + Total_amount);
-
-        else
-            System.out.println("The Total Loss is " + Total_amount);
         }
+        System.out.println("Maximum Profit of " + Max_Profit + " On Day: " + day_max_profit);
+        System.out.println("Maximum Loss of " + Max_Loose + " On Day: " + day_max_loose);
     }
+}
